@@ -1,5 +1,3 @@
-use itertools::Itertools;
-
 pub(crate) fn part_one(input: &str) -> usize {
     input
         .lines()
@@ -10,12 +8,11 @@ pub(crate) fn part_one(input: &str) -> usize {
                 .collect();
 
             let diff = nums
-                .iter()
-                .tuple_windows()
-                .all(|(a, b)| 1 <= a.abs_diff(*b) && a.abs_diff(*b) <= 3);
+                .windows(2)
+                .all(|n| 1 <= n[0].abs_diff(n[1]) && n[0].abs_diff(n[1]) <= 3);
 
-            let inc = nums.iter().tuple_windows().all(|(a, b)| a < b);
-            let dec = nums.iter().tuple_windows().all(|(a, b)| a > b);
+            let inc = nums.windows(2).all(|n| n[0] < n[1]);
+            let dec = nums.windows(2).all(|n| n[0] > n[1]);
 
             diff && (inc || dec)
         })
@@ -32,13 +29,12 @@ pub(crate) fn part_two(input: &str) -> usize {
                 .collect();
 
             let diff = |nums: &[u8]| {
-                nums.iter()
-                    .tuple_windows()
-                    .all(|(&a, &b)| 1 <= a.abs_diff(b) && a.abs_diff(b) <= 3)
+                nums.windows(2)
+                    .all(|n| 1 <= n[0].abs_diff(n[1]) && n[0].abs_diff(n[1]) <= 3)
             };
 
-            let is_inc = |nums: &[u8]| nums.iter().tuple_windows().all(|(a, b)| a < b);
-            let is_dec = |nums: &[u8]| nums.iter().tuple_windows().all(|(a, b)| a > b);
+            let is_inc = |nums: &[u8]| nums.windows(2).all(|n| n[0] < n[1]);
+            let is_dec = |nums: &[u8]| nums.windows(2).all(|n| n[0] > n[1]);
 
             let condn1 = diff(&nums) && (is_inc(&nums) || is_dec(&nums));
 
