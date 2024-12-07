@@ -1,9 +1,9 @@
-mod day_6;
-use day_6::*;
+mod day_7;
+use day_7::*;
 
 fn main() {
-    let example = include_str!("../data/day_6/example.txt");
-    let data = include_str!("../data/day_6/data.txt");
+    let example = include_str!("../data/day_7/example.txt");
+    let data = include_str!("../data/day_7/data.txt");
 
     let e_one = part_one(example);
     println!("{e_one}");
